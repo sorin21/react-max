@@ -4,3 +4,4 @@
 3. npm start
 
 4. npm install --save radium
+5. npm run eject
