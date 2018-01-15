@@ -1,18 +1,55 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 
-class App extends Component {
-  state = {
-    persons: [
-      {id: 'das4', name: 'Max', age: 25},
-      {id: 'dsf1', name: 'Sorin', age: 38},
-      {id: 'ghfhg5', name: 'Cristina', age: 19}
-    ],
-    showPersons: false
+class App extends PureComponent {
+  constructor(props) {
+    super(props)
+    console.log('App.js Inside Constructor', props)
+    this.state = {
+      persons: [
+        { id: 'das4', name: 'Max', age: 25 },
+        { id: 'dsf1', name: 'Sorin', age: 38 },
+        { id: 'ghfhg5', name: 'Cristina', age: 19 }
+      ],
+      showPersons: false
+    }
   }
+
+  componentWillMount() {
+    console.log('App.js Inside componentWillMount()')
+  }
+
+  componentDidMount() {
+    console.log('App.js Inside componentDidMount()')
+  }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('[Update] App.js Inside shouldComponentUpdate()', nextProps, nextState)
+  //   // should return true or false
+  //   // return true;
+  //   return nextState.persons !== this.state.persons ||
+  //     nextState.showPersons !== this.state.showPersons;
+  // }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('[Update] App.js Inside componentWillUpdate()', nextProps, nextState)
+  }
+
+  componentDidUpdate() {
+    console.log('[Update] App.js Inside componentDidUpdate()')
+  }
+
+  // state = {
+  //   persons: [
+  //     {id: 'das4', name: 'Max', age: 25},
+  //     {id: 'dsf1', name: 'Sorin', age: 38},
+  //     {id: 'ghfhg5', name: 'Cristina', age: 19}
+  //   ],
+  //   showPersons: false
+  // }
 
 
   // target is the input where we type  
@@ -54,6 +91,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('App.js Inside render()')
     let personsList = null;
 
     if(this.state.showPersons) {
@@ -69,6 +107,7 @@ class App extends Component {
 
     return (
         <div className={classes.App}>
+          <button onClick={() => this.setState({showPersons: true})}>Show Persons</button>
           <Cockpit 
             appTitle={this.props.title}
             showPersons={this.state.showPersons}
