@@ -5,3 +5,5 @@
 
 4. npm install --save radium
 5. npm run eject
+
+6. npm install --save prop-types

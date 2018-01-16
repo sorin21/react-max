@@ -1,7 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent} from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import Aux from "../Hoc/Auxiliary";
+import withClass from "../Hoc/withClass2";
+// import withClass2 from '../Hoc/withClass2';
 
 
 class App extends PureComponent {
@@ -10,11 +13,12 @@ class App extends PureComponent {
     console.log('App.js Inside Constructor', props)
     this.state = {
       persons: [
-        { id: 'das4', name: 'Max', age: 25 },
+        { id: 'das4', name: 'Max', age: '25' },
         { id: 'dsf1', name: 'Sorin', age: 38 },
         { id: 'ghfhg5', name: 'Cristina', age: 19 }
       ],
-      showPersons: false
+      showPersons: false,
+      toggleClicked: 0
     }
   }
 
@@ -87,7 +91,12 @@ class App extends PureComponent {
 
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
-    this.setState({showPersons: !doesShow});
+    this.setState((prevState, props) => {
+      return {
+        showPersons: !doesShow,
+        toggleClicked: prevState.toggleClicked + 1
+      }
+    });
   }
 
   render() {
@@ -106,7 +115,7 @@ class App extends PureComponent {
     }
 
     return (
-        <div className={classes.App}>
+      <Aux>
           <button onClick={() => this.setState({showPersons: true})}>Show Persons</button>
           <Cockpit 
             appTitle={this.props.title}
@@ -114,9 +123,9 @@ class App extends PureComponent {
             persons={this.state.persons}
             clicked={this.togglePersonsHandler} />
           {personsList}
-        </div>
+      </Aux>
     );
   }
 }
 
-export default App;
+export default withClass(App, classes.App);
